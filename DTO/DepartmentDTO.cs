@@ -1,3 +1,3 @@
 
-namespace ParcelDelivery.Api.DTOs;    
+namespace ParcelDelivery.Api.DTO;    
 public record DepartmentDTO(string Name);

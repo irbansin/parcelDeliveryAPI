@@ -1,10 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
-using ParcelDelivery.Api.DTOs;
+using ParcelDelivery.Api.DTO;
 using System.Text.Json;
 using ParcelDelivery.Api.Models;
 using ParcelDelivery.Api.Data;
-using Microsoft.EntityFrameworkCore;
-
+using ParcelDelivery.Api.Interfaces;
 namespace ParcelDelivery.Api.Controllers;
 
 [ApiController]
@@ -12,9 +11,9 @@ namespace ParcelDelivery.Api.Controllers;
 public class OrdersController : ControllerBase
 {
     private readonly AppDbContext _db;
-    private readonly ParcelDelivery.Api.Services.IParcelClassifier _classifier;
+    private readonly IParcelClassifier _classifier;
 
-    public OrdersController(AppDbContext db, ParcelDelivery.Api.Services.IParcelClassifier classifier)
+    public OrdersController(AppDbContext db, IParcelClassifier classifier)
     {
         _db = db;
         _classifier = classifier;

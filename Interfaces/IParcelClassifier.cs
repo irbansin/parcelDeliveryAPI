@@ -1,6 +1,6 @@
 using ParcelDelivery.Api.Models;
 
-namespace ParcelDelivery.Api.Services;
+namespace ParcelDelivery.Api.Interfaces;
 
 public interface IParcelClassifier
 {

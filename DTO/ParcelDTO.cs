@@ -1,6 +1,6 @@
 using ParcelDelivery.Api.Models;
 
-namespace ParcelDelivery.Api.DTOs;
+namespace ParcelDelivery.Api.DTO;
 
 
 public record ParcelDTO(
