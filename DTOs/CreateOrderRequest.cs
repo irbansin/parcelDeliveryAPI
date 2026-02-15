@@ -12,11 +12,6 @@ public record ParcelInput(
     double Weight,
     decimal Value,
     string RecipientName,
-    string Phone,
-    string Street,
-    string HouseNo,
-    string CityName,
-    string CityCode,
-    int Pincode,
+    Address RecipientAddress,
     ContentType Content
 );

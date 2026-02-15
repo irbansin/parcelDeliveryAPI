@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using ParcelDelivery.Api.DTOs;
+using ParcelDelivery.Api.Models;
 
 namespace ParcelDelivery.Api.Controllers;
 
@@ -10,11 +11,12 @@ public class OrdersController : ControllerBase
     [HttpPost]
     public IActionResult CreateOrder([FromBody] CreateOrderRequest request)
     {
-        // For now, we just acknowledge the data
         return Ok(new { 
             Message = "Order received!", 
             ParcelsCount = request.Parcels.Count,
             ReceivedAt = DateTime.Now 
         });
     }
+
+   
 }
