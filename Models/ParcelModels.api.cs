@@ -4,7 +4,14 @@ public enum OrderType { International, Domestic }
 public enum AddressType { Home, Office, Custom }
 public enum ContentType { Household, Electronics, Food, HouseholdItems }
 
-public enum Department { Mail, Regular, Heavy }
+// Department entity (lookup table)
+public class Department
+{
+    public Guid Id { get; set; }
+    public string Name { get; set; } = default!;
+
+    public ICollection<Parcel>? Parcels { get; set; }
+}
 
 public record City
 {
@@ -45,7 +52,9 @@ public class Parcel
     public Guid? RecipientId { get; set; }
     public Recipient? Recipient { get; set; }
 
-    public Department Department { get; set; } = Department.Regular;
+    // link to Department entity
+    public Guid? DepartmentId { get; set; }
+    public Department? Department { get; set; }
     public ContentType Content { get; set; }
 
     // relation to Order

@@ -41,7 +41,7 @@ public class OrdersController : ControllerBase
                     AddressJson = JsonSerializer.Serialize(p.RecipientAddress),
                     Phone = string.Empty
                 },
-                Department = _classifier.Classify(p.Weight)
+                DepartmentId = _classifier.Classify(p.Weight)
             }).ToList()
         };
 
