@@ -2,13 +2,8 @@ using ParcelDelivery.Api.Models;
 
 namespace ParcelDelivery.Api.DTOs;
 
-public record CreateOrderRequest(
-    DateTime ShippingDate,
-    OrderType Type,
-    List<ParcelInput> Parcels
-);
 
-public record ParcelInput(
+public record ParcelDTO(
     double Weight,
     decimal Value,
     string RecipientName,
