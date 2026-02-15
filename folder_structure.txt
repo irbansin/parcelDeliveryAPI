@@ -1,0 +1,17 @@
+.
+|____ParcelDelivery.Api.http
+|____appsettings.json
+|____Models
+|____folder_structure.txt
+|____DTOs
+| |____CreateOrderRequest.cs
+|____.gitignore
+|____Properties
+| |____launchSettings.json
+|____ParcelDelivery.Api.csproj
+|____ParcelDelivery.Api.sln
+|____appsettings.Development.json
+|____Controllers
+| |____OrdersController.cs
+|____Services
+|____Program.cs
