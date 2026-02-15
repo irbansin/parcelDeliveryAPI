@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using ParcelDelivery.Api.DTOs;
+using System.Text.Json;
 using ParcelDelivery.Api.Models;
 using ParcelDelivery.Api.Data;
 using Microsoft.EntityFrameworkCore;
@@ -11,10 +12,12 @@ namespace ParcelDelivery.Api.Controllers;
 public class OrdersController : ControllerBase
 {
     private readonly AppDbContext _db;
+    private readonly ParcelDelivery.Api.Services.IParcelClassifier _classifier;
 
-    public OrdersController(AppDbContext db)
+    public OrdersController(AppDbContext db, ParcelDelivery.Api.Services.IParcelClassifier classifier)
     {
         _db = db;
+        _classifier = classifier;
     }
 
     [HttpPost]
@@ -35,9 +38,10 @@ public class OrdersController : ControllerBase
                 {
                     Id = Guid.NewGuid(),
                     Name = p.RecipientName,
-                    Address = p.RecipientAddress,
+                    AddressJson = JsonSerializer.Serialize(p.RecipientAddress),
                     Phone = string.Empty
-                }
+                },
+                Department = _classifier.Classify(p.Weight)
             }).ToList()
         };
 

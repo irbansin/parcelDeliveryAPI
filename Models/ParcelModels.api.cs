@@ -4,6 +4,8 @@ public enum OrderType { International, Domestic }
 public enum AddressType { Home, Office, Custom }
 public enum ContentType { Household, Electronics, Food, HouseholdItems }
 
+public enum Department { Mail, Regular, Heavy }
+
 public record City
 {
     public string Name { get; init; } = default!;
@@ -21,21 +23,34 @@ public record Address
     public string? CustomAddressType { get; init; }
 }
 
-public record Recipient
+public class Recipient
 {
-    public Guid Id { get; init; }
-    public string Name { get; init; } = default!;
-    public Address Address { get; init; } = default!;
-    public string Phone { get; init; } = default!;
+    public Guid Id { get; set; }
+    public string Name { get; set; } = default!;
+    // store the address as JSON in the DB for now; we may split Address into its own table later
+    public string? AddressJson { get; set; }
+    public string Phone { get; set; } = default!;
+
+    // navigation
+    public ICollection<Parcel>? Parcels { get; set; }
 }
 
-public record Parcel
+public class Parcel
 {
-    public Guid Id { get; init; }
-    public double Weight { get; init; }
-    public decimal Value { get; init; }
-    public Recipient Recipient { get; init; } = default!;
-    public ContentType Content { get; init; }
+    public Guid Id { get; set; }
+    public double Weight { get; set; }
+    public decimal Value { get; set; }
+
+    // foreign keys
+    public Guid? RecipientId { get; set; }
+    public Recipient? Recipient { get; set; }
+
+    public Department Department { get; set; } = Department.Regular;
+    public ContentType Content { get; set; }
+
+    // relation to Order
+    public Guid? OrderId { get; set; }
+    public Order? Order { get; set; }
 }
 
 public record Order

@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using ParcelDelivery.Api.Data;
+using ParcelDelivery.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,8 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+// parcel classifier (business rules service)
+builder.Services.AddSingleton<IParcelClassifier, ParcelClassifier>();
 
 var app = builder.Build();
 
