@@ -15,4 +15,10 @@ public class ParcelClassifier : IParcelClassifier
         if (weightKg <= 10.0) return Department.Regular;
         return Department.Heavy;
     }
+    public ApprovalStatus ClassifyApproval(decimal value)
+    {
+        if (value <= 1000) return ApprovalStatus.Approved;
+        return ApprovalStatus.Pending;
+    }
+
 }

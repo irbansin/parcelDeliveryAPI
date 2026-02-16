@@ -5,5 +5,7 @@ namespace ParcelDelivery.Api.Interfaces;
 public interface IParcelClassifier
 {
     Department ClassifyDepartment(double weightKg);
+
+    ApprovalStatus ClassifyApproval(decimal value);
     
 }

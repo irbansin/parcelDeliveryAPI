@@ -5,6 +5,7 @@ public enum AddressType { Home, Office, Custom }
 public enum ContentType { Household, Electronics, Food, HouseholdItems }
 
 public enum Department { Mail = 0, Regular = 1, Heavy = 2 , Insurance = 3 }
+public enum ApprovalStatus { Rejected = 0, Approved = 1, Pending = 2 }
 
 public record City
 {
@@ -40,7 +41,7 @@ public class Parcel
     public double Weight { get; set; }
     public decimal Value { get; set; }
 
-    public bool Approved { get; set; } = true;
+    public ApprovalStatus ApprovalStatus { get; set; } = ApprovalStatus.Pending;
 
 
     // foreign keys
