@@ -4,5 +4,6 @@ namespace ParcelDelivery.Api.Interfaces;
 
 public interface IParcelClassifier
 {
-    Guid Classify(double weightKg);
+    Department ClassifyDepartment(double weightKg);
+    
 }

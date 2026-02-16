@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using ParcelDelivery.Api.DAO;
+// DAO registration removed — Department is now an enum
 using ParcelDelivery.Api.Data;
 using ParcelDelivery.Api.Interfaces;
 using ParcelDelivery.Api.Services;
@@ -18,8 +18,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 // parcel classifier (business rules service)
 builder.Services.AddSingleton<IParcelClassifier, ParcelClassifier>();
-// DAOs
-builder.Services.AddScoped<IDepartmentDao, DepartmentDao>();
+// no DAO registration for Department (Department is an enum)
 
 var app = builder.Build();
 
