@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ParcelDelivery.Api.DTO;
 using System.Text.Json;
+using System.Linq;
 using ParcelDelivery.Api.Models;
 using ParcelDelivery.Api.Interfaces;
 namespace ParcelDelivery.Api.Controllers;
@@ -39,7 +40,7 @@ public class OrdersController : ControllerBase
                     AddressJson = JsonSerializer.Serialize(p.RecipientAddress),
                     Phone = string.Empty
                 },
-                Department = _classifier.ClassifyDepartment(p.Weight),  
+                Department = _classifier.ClassifyDepartment(p.Weight, p.Value),  
                 ApprovalStatus = _classifier.ClassifyApproval(p.Value)
             }).ToList()
         };
@@ -54,4 +55,29 @@ public class OrdersController : ControllerBase
         });
     }
 
+    [HttpGet()]
+    public async Task<IActionResult> ListOrders()
+    {
+        var orders = await _orderDao.ListAsync();
+
+        var result = orders.Select(o => new
+        {
+            o.Id,
+            o.ShippingDate,
+            Type = o.Type.ToString(),
+            Parcels = o.Parcels?.Select(p => new
+            {
+                p.Id,
+                p.Weight,
+                p.Value,
+                Content = p.Content.ToString(),
+                RecipientName = p.Recipient?.Name,
+                RecipientAddress = p.Recipient?.AddressJson == null ? null : JsonSerializer.Deserialize<object>(p.Recipient.AddressJson),
+                Department = p.Department.ToString(),
+                ApprovalStatus = p.ApprovalStatus
+            }).ToList()
+        }).ToList();
+
+        return Ok(result);
+    }
 }

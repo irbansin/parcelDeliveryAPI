@@ -9,8 +9,8 @@ public class ParcelClassifier : IParcelClassifier
     // - up to 1 kg => Mail
     // - up to 10 kg => Regular
     // - over 10 kg => Heavy
-    public Department ClassifyDepartment(double weightKg)
-    {
+    public Department ClassifyDepartment(double weightKg, decimal value)
+    {   if (value > 1000) return Department.Insurance; 
         if (weightKg <= 1.0) return Department.Mail;
         if (weightKg <= 10.0) return Department.Regular;
         return Department.Heavy;
