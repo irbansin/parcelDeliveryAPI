@@ -41,6 +41,9 @@ public class Parcel
     public double Weight { get; set; }
     public decimal Value { get; set; }
 
+    public bool Approved { get; set; } = true;
+
+
     // foreign keys
     public Guid? RecipientId { get; set; }
     public Recipient? Recipient { get; set; }
