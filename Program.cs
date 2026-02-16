@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using ParcelDelivery.Api.Data;
 using ParcelDelivery.Api.Interfaces;
 using ParcelDelivery.Api.Services;
+using ParcelDelivery.Api.DAO;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +19,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 // parcel classifier (business rules service)
 builder.Services.AddSingleton<IParcelClassifier, ParcelClassifier>();
-// no DAO registration for Department (Department is an enum)
+// DAOs
+builder.Services.AddScoped<IOrderDao, OrderDao>();
 
 var app = builder.Build();
 

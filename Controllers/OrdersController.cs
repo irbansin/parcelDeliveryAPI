@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using ParcelDelivery.Api.DTO;
 using System.Text.Json;
 using ParcelDelivery.Api.Models;
-using ParcelDelivery.Api.Data;
 using ParcelDelivery.Api.Interfaces;
 namespace ParcelDelivery.Api.Controllers;
 
@@ -10,12 +9,12 @@ namespace ParcelDelivery.Api.Controllers;
 [Route("api/[controller]")]
 public class OrdersController : ControllerBase
 {
-    private readonly AppDbContext _db;
+    private readonly IOrderDao _orderDao;
     private readonly IParcelClassifier _classifier;
 
-    public OrdersController(AppDbContext db, IParcelClassifier classifier)
+    public OrdersController(IOrderDao orderDao, IParcelClassifier classifier)
     {
-        _db = db;
+        _orderDao = orderDao;
         _classifier = classifier;
     }
 
@@ -40,12 +39,11 @@ public class OrdersController : ControllerBase
                     AddressJson = JsonSerializer.Serialize(p.RecipientAddress),
                     Phone = string.Empty
                 },
-                   Department = _classifier.ClassifyDepartment(p.Weight)
+                    Department = _classifier.ClassifyDepartment(p.Weight)
             }).ToList()
         };
 
-        await _db.Orders.AddAsync(order);
-        await _db.SaveChangesAsync();
+            await _orderDao.CreateAsync(order);
 
         return CreatedAtAction(nameof(CreateOrder), new { id = order.Id }, new {
             Message = "Order created",
