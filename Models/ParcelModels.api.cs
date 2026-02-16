@@ -15,7 +15,6 @@ public record City
 
 public record Address
 {
-    public Guid Id { get; init; }
     public AddressType Type { get; init; }
     public string Street { get; init; } = default!;
     public string HouseNo { get; init; } = default!;
